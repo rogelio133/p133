@@ -1,0 +1,100 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+
+<div class="container">
+    <!-- Left Section - Brand -->
+    <div class="left-section">
+        <div class="logo">
+            <!--
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            -->
+            <img src="/images/logo.png" alt="Logo" class="logo">
+
+        </div>
+        <h1 class="title">
+            @ViewData["Titulo"]<br>
+            <span class="title-accent">@ViewData["Subtitulo"]</span>
+        </h1>
+
+        <div class="decorative-1"></div>
+        <div class="decorative-2"></div>
+    </div>
+
+    <!-- Right Section - Login Form -->
+    <div class="right-section">
+        <div class="form-container">
+            <!-- Mobile Logo -->
+            <div class="mobile-logo">
+                <div class="logo">
+                    <!--
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    -->
+
+                    <img src="/images/logo.png" alt="Logo" class="logo">
+
+
+                </div>
+            </div>
+
+            <!-- Mobile Title -->
+            <div class="mobile-title">
+                <h1>@ViewData["Titulo"] <span class="title-accent">@ViewData["Subtitulo"]</span></h1>
+
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Iniciar Sesión</h2>
+                    <p class="card-description">Ingresa tus credenciales para acceder al sistema</p>
+                </div>
+                
+
+                <form id="account" method="post">
+
+                    <!-- Username Field -->
+                    <div class="form-group">
+                        <label asp-for="Input.Email" class="label">Usuario</label>
+                        <input asp-for="Input.Email" class="input" autocomplete="username" aria-required="true" placeholder="Ingresa tu nombre de usuario"  />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="form-group">
+                        <label asp-for="Input.Password" class="label">Contraseña</label>
+                        <input asp-for="Input.Password" class="input" autocomplete="current-password" aria-required="true" placeholder="Ingresa tu contraseña"  />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+
+                    </div>
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                    <!-- Login Button -->
+                    <button id="login-submit"  type="submit" class="button">
+                        <span id="buttonText">Iniciar Sesión</span>
+                        <div id="spinner" class="spinner" style="display: none;"></div>
+                    </button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

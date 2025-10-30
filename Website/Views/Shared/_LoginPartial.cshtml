@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+  
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="header-right">
+         
+        <span class="welcome-text">
+            Bienvenido: <span class="welcome-name">@UserManager.GetUserName(User)</span>
+        </span>
+        <span class="welcome-mobile">
+            <span class="welcome-name">@UserManager.GetUserName(User)</span>
+        </span>
+
+        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Login", "Account", new { area = "Identity" })">
+            <button id="logout" type="submit" class="logout-button">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                    <polyline points="16,17 21,12 16,7" />
+                    <line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
+                Salir
+            </button>
+        </form>
+
+
+    </div>
+}
+
