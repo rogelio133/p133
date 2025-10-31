@@ -1,4 +1,5 @@
 ﻿using DataAccess.Data;
+using DataAccess.DbInitializer;
 using DataAccess.Repository;
 using DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -24,11 +25,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Configure Identity (cookies are registered automatically)
-/*builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
-*/
+//builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
@@ -62,10 +60,11 @@ builder.Services.AddAuthentication()
     });
 
 // Authorization
-builder.Services.AddAuthorization();
+//builder.Services.AddAuthorization();
 
 // Register application services
 
+builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddRazorPages();
@@ -147,10 +146,10 @@ app.UseAuthorization();
 // Map routes
 app.MapControllerRoute(
     name: "default",
-    pattern: "{area=Cliente}/{controller=Muestra}/{action=Index}/{id?}");
+    pattern: "{area=Admin}/{controller=Home}/{action=Index}/{id?}");
 
 
-
+ /*
 app.MapGet("/", async context =>
 {
     var query = context.Request.QueryString.HasValue
@@ -161,7 +160,9 @@ app.MapGet("/", async context =>
 
     context.Response.Redirect(redirectUrl);
     await Task.CompletedTask;
-});
+});*/
+ 
+
 
 app.MapRazorPages();
 app.MapControllers();
@@ -171,6 +172,16 @@ app.MapControllers();
 
 app.UseSerilogRequestLogging();
 
-
+SeedDatabase();
 
 app.Run();
+
+
+void SeedDatabase()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+        dbInitializer.Initialize();
+    }
+}

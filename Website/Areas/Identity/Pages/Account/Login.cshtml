@@ -53,8 +53,8 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h2 class="card-title">Iniciar Sesión</h2>
-                    <p class="card-description">Ingresa tus credenciales para acceder al sistema</p>
+                    <h2 class="card-title">User login</h2>
+                     
                 </div>
                 
 
@@ -63,14 +63,14 @@
                     <!-- Username Field -->
                     <div class="form-group">
                         <label asp-for="Input.Email" class="label">Usuario</label>
-                        <input asp-for="Input.Email" class="input" autocomplete="username" aria-required="true" placeholder="Ingresa tu nombre de usuario"  />
+                        <input asp-for="Input.Email" class="input" autocomplete="username" aria-required="true" placeholder="Username"  />
                         <span asp-validation-for="Input.Email" class="text-danger"></span>
                     </div>
 
                     <!-- Password Field -->
                     <div class="form-group">
                         <label asp-for="Input.Password" class="label">Contraseña</label>
-                        <input asp-for="Input.Password" class="input" autocomplete="current-password" aria-required="true" placeholder="Ingresa tu contraseña"  />
+                        <input asp-for="Input.Password" class="input" autocomplete="current-password" aria-required="true" placeholder="Password"  />
                         <span asp-validation-for="Input.Password" class="text-danger"></span>
 
                     </div>
@@ -78,7 +78,7 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                     <!-- Login Button -->
                     <button id="login-submit"  type="submit" class="button">
-                        <span id="buttonText">Iniciar Sesión</span>
+                        <span id="buttonText">Sign up</span>
                         <div id="spinner" class="spinner" style="display: none;"></div>
                     </button>
                 </form>
